@@ -1,0 +1,45 @@
+$header-height: 80px;
+$footer-height: 80px;
+$header-color: rgb(24, 61, 95);
+$header-text-color: white;
+$main-color: cornflowerblue;
+$element-color: rgb(33, 179, 33);
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: $main-color;
+}
+header {
+    display: flex;
+    margin: 0;
+    height: $header-height;
+    background-color: $header-color;
+    color: $header-text-color;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - #{$footer-height} - #{$header-height});
+
+    section {
+        height: 30%;
+        width: 50%;
+        max-width: 400px;
+        padding: 5%;
+        border-radius: 15px;
+        background-color: $element-color;
+    }
+    fieldset {
+        display: flex;
+        justify-content: space-around;
+        
+    }
+}
+footer {
+    margin: 0;
+    height: $footer-height;
+    background-color: $header-color;
+}
