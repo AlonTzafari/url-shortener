@@ -6,6 +6,7 @@
     <link rel="icon" type="image/png" href="./favicon.ico" />
     <link href="./styles/style.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./script.js"></script>
   </head>
 
   <body>
@@ -14,7 +15,7 @@
     </header>
     <main>
       <section>
-        <form action="api/shorturl/new" method="POST">
+        <form id="url-form">
           <fieldset>
             <legend>URL Shortener</legend>
             <label for="url_input">URL:</label>
@@ -27,7 +28,7 @@
             <input type="submit" value="POST URL" />
           </fieldset>
         </form>
-        <div class = "output-container">
+        <div class="output-container">
           <a id = "url-output" href="">shorturl.com</a>
           <button>COPY</button>
         </div>

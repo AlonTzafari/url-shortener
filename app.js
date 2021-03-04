@@ -8,4 +8,6 @@ app.use(cors());
 
 app.use("/", express.static(`./public`));
 
+app.use("/api", api);
+
 module.exports = app;
