@@ -36,6 +36,24 @@ describe("URL shortener API", () => {
             expect(body["original_url"]).toBe(mockURL);
         });
     }); 
+
+    describe("response content" , () => {
+        const mockURL = "http://google.com";
+        const resPromise = request(app)
+        .post("/api/shorturl/new")
+        .send({url: mockURL})
+        .set("Content-Type", "application/json");
+
+        test('short url is valid', async () => {
+            const {body} = await resPromise;
+            try {
+                const urlObject = new URL(body["short_url"])
+                expect(true).toBe(true);
+            } catch (err) {
+                expect(err).toBe("test not supposed to run");
+            }
+        });
+    }); 
     
 
 });
