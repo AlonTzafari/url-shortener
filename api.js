@@ -2,6 +2,7 @@
 const express = require("express");
 const api = express.Router();
 const DOMAIN = "http://localhost:3000";
+
 api.use(express.json());
 
 api.post("/shorturl/new", (req, res) => {
@@ -11,7 +12,7 @@ api.post("/shorturl/new", (req, res) => {
     res.send(response);
 });
 
-
+console.log(process.env); 
 
 
 module.exports = api;
