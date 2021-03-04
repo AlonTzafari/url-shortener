@@ -1,12 +1,13 @@
-const { response } = require('express');
+"use strict"
 const request = require('supertest');
 const app = require("../app");
 
+// test the tests!!
 test("Always PASS", () => {
     expect(true).toBe(true);
 });
 
-//backend service tests
+// backend service tests
 describe("URL shortener API", () => {
 
     describe("response format" , () => {
@@ -15,14 +16,24 @@ describe("URL shortener API", () => {
         .post("/api/shorturl/new")
         .send({url: mockURL})
         .set("Content-Type", "application/json");
-        
-        test("response body has 'original_url' property", async () => {
+
+        test("response with status 200", async () => {
+            const {status} = await resPromise;
+            expect(status).toBe(200);
+        });
+
+        const cases = [
+            "original_url",
+            "short_url",
+        ];
+        test.each(cases)("response body has '%s' property", async (propName) => {
             const {body} = await resPromise;
-            expect(body.hasOwnProperty("original_url")).toBe(true);
-        }); 
-        test("response body has 'short_url' property", async () => {
+            expect(body.hasOwnProperty(propName)).toBe(true);
+        });
+    
+        test("'original_url' same as one sent", async () => {
             const {body} = await resPromise;
-            expect(body.hasOwnProperty("short_url")).toBe(true);
+            expect(body["original_url"]).toBe(mockURL);
         });
     }); 
     

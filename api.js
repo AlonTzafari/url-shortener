@@ -1,7 +1,7 @@
 "use strict"
 const express = require("express");
 const api = express.Router();
-const DOMAIN = "http://localhost:3000";
+const DOMAIN = process.env.HOST_NAME || `http://localhost:${process.env.PORT}`;
 
 api.use(express.json());
 
@@ -11,8 +11,6 @@ api.post("/shorturl/new", (req, res) => {
     const response = {original_url, short_url};
     res.send(response);
 });
-
-console.log(process.env); 
 
 
 module.exports = api;
