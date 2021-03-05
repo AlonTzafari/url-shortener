@@ -4,7 +4,7 @@ const DataBase = require("./DB")
 const api = express.Router();
 const DOMAIN = process.env.HOST_NAME || `http://localhost:${process.env.PORT}`;
 
-const dataBase = new DataBase();
+const dataBase = new DataBase("jsonbin.io");
 
 api.use(express.json());
 
