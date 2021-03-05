@@ -68,16 +68,26 @@ describe("URL shortener API", () => {
                     message: "url must be valid",
                 },
             ],
+            [
+                "missing url property",
+                {
+                    notUrl: "https://www.facebook.com/",
+                },
+                {
+                    status: 400,
+                    message: "request body must have 'url' property",
+                },
+            ],
         ];
 
-        test.each(cases)("%s", async (caseName, send, receive) => {
+        test.each(cases)("%s", async (_, send, expected) => {
             const resPromise = request(app)
             .post("/api/shorturl/new")
             .send(send)
             .set("Content-Type", "application/json");
             const res = await resPromise;
-            expect(res.status).toBe(receive.status);
-            expect(res.body.message).toBe(receive.message);
+            expect(res.status).toBe(expected.status);
+            expect(res.body.message).toBe(expected.message);
         });
     });
     
