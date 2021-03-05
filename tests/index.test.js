@@ -1,4 +1,5 @@
 "use strict"
+const { response } = require('express');
 const request = require('supertest');
 const app = require("../app");
 
@@ -31,19 +32,19 @@ describe("URL shortener API", () => {
             expect(body.hasOwnProperty(propName)).toBe(true);
         });
     
-        test("'original_url' same as one sent", async () => {
-            const {body} = await resPromise;
-            expect(body["original_url"]).toBe(mockURL);
-        });
     }); 
-
-    describe("response content" , () => {
+    
+    describe("Response content" , () => {
         const mockURL = "http://google.com";
         const resPromise = request(app)
         .post("/api/shorturl/new")
         .send({url: mockURL})
         .set("Content-Type", "application/json");
-
+        
+        test("'original_url' same as one sent", async () => {
+            const {body} = await resPromise;
+            expect(body["original_url"]).toBe(mockURL);
+        });
         test('short url is valid', async () => {
             const {body} = await resPromise;
             try {
@@ -53,7 +54,31 @@ describe("URL shortener API", () => {
                 expect(err).toBe("test not supposed to run");
             }
         });
-    }); 
-    
+    });
 
+    describe("Error handling" , () => {
+        const cases = [
+            [
+                "invalid url",
+                {
+                    url: "badString",
+                },
+                {
+                    status: 400,
+                    message: "url must be valid",
+                },
+            ],
+        ];
+
+        test.each(cases)("%s", async (caseName, send, receive) => {
+            const resPromise = request(app)
+            .post("/api/shorturl/new")
+            .send(send)
+            .set("Content-Type", "application/json");
+            const res = await resPromise;
+            expect(res.status).toBe(receive.status);
+            expect(res.body.message).toBe(receive.message);
+        });
+    });
+    
 });
