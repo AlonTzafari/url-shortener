@@ -20,7 +20,7 @@ api.post("/shorturl/new", (req, res) => {
         return res.status(400).send({ message: "url must be valid"});
     }
 
-    dataBase.getItemByProperty("original_url", original_url)
+    dataBase.getItemByProperty("originalUrl", original_url)
     .then(shortUrlBin => {
         const id = shortUrlBin["shorturl-id"];
         const short_url = `${DOMAIN}/${id}`;

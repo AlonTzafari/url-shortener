@@ -32,11 +32,13 @@ class DataBase {;
         
         return fs.readdir(this.path)
         .then( async binNames => {
+            console.log(binNames);
             const items = [];
             for(const binName of binNames) {
                 if(binName === ".gitkeep") continue;
                 const raw = await fs.readFile(`${this.path}/${binName}`);
-                items.push(JSON.parse(raw));
+                const bin = JSON.parse(raw);
+                items.push(bin);
             }
             return items;
         });
@@ -46,7 +48,9 @@ class DataBase {;
     getItemByProperty(propName, value) {
         return this.getAllItems()
         .then(allBins => {
-            const bin = allBins.filter(bin => bin[propName === value]);
+            // console.log(allBins);
+            console.log(propName, value);
+            const bin = allBins.filter(bin => bin[propName] === value);
             if (bin.length === 0) throw new Error("item not found");
             return bin[0];
         })

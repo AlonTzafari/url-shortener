@@ -13,7 +13,11 @@ app.use("/api", api);
 
 app.get("/:id", (req, res) => {
     dataBase.getItem(req.params.id)
-    .then(bin => res.redirect(bin.originalUrl))
+    .then(bin => {
+        bin.redirectCount++;
+        dataBase.setItem(req.params.id, bin);
+        res.redirect(bin.originalUrl)
+    })
     .catch(e => res.status(404).send({message: "url not found"}));
 });
 
