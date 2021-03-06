@@ -72,4 +72,4 @@ async function createShortURL(originalUrl) {
     }
     
 }
-module.exports = api;
+module.exports = {api, dataBase};
