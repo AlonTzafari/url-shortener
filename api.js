@@ -1,10 +1,13 @@
 "use strict"
 const express = require("express");
-const DataBase = require("./DB")
+const DataBase = require("./DB");
 const api = express.Router();
 const DOMAIN = process.env.HOST_NAME || `http://localhost:${process.env.PORT}`;
 
-const dataBase = new DataBase("jsonbin.io");
+const dB = process.env.NODE_ENV === "test"? "test": "local";
+console.log("creating database of type " + dB);
+const dataBase = new DataBase(dB);
+if(dB==="test") dataBase.deleteAll();
 
 api.use(express.json());
 
@@ -14,7 +17,6 @@ api.post("/shorturl/new", (req, res) => {
     try {
         new URL(original_url);
     } catch (e) {
-        console.log(e);
         return res.status(400).send({ message: "url must be valid"});
     }
 
@@ -24,17 +26,18 @@ api.post("/shorturl/new", (req, res) => {
         const short_url = `${DOMAIN}/${id}`;
         res.status(200).send({original_url, short_url})
     })
-    .catch(async () => {
+    .catch(async (e) => {
         const newShortUrlBin = await createShortURL(original_url);
         const id = newShortUrlBin["shorturl-id"];
         const short_url = `${DOMAIN}/${id}`;
-        return dataBase.setItem(id, newShortUrlBin)
-    })
-    .then( () => res.status(201).send(original_url, short_url) )
-    .catch( error => res.status(500).send(error) );
+        dataBase.setItem(id, newShortUrlBin)
+        .then( () => res.status(201).send({original_url, short_url}) )
+        .catch( error => res.status(500).send(error) );
+    });
+    
 });
 
-function createShortURL(originalUrl) {
+async function createShortURL(originalUrl) {
     const chars = "0123456789abcdefghijklmnopqrstuvwxyz";
     function convertToNum(str) {
         const base = chars.length;
@@ -52,17 +55,21 @@ function createShortURL(originalUrl) {
         }
         return strArr.join("");
     }
-    dataBase.getAllItems()
-    .then(allBins => {
-        const creationDate = new Date().toISOString.split("z")[0];
+    console.log("fetching all bins");
+    try {
+        const allIds = await dataBase.getAllItemIds()
+        const creationDate = new Date().toISOString().split(".")[0];
         const redirectCount = 0;
-        const shortUrlId = convertToStr(allBins.length);
+        const shortUrlId = convertToStr(allIds.length);
         return {
             creationDate,
             redirectCount,
             originalUrl,
             "shorturl-id": shortUrlId
         };
-    })
+    } catch(e){
+        console.log("short url creation failed");
+    }
+    
 }
 module.exports = api;

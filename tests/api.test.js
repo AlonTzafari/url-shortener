@@ -9,9 +9,9 @@ describe("response format" , () => {
     .send({url: mockURL})
     .set("Content-Type", "application/json");
 
-    test("response with status 200", async () => {
+    test("response with status 201", async () => {
         const {status} = await resPromise;
-        expect(status).toBe(200);
+        expect(status).toBe(201);
     });
 
     const cases = [
