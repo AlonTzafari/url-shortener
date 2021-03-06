@@ -1,3 +1,7 @@
 .vscode/*
 .env
 node_modules/
+database/bins/*
+database/test/*
+!database/bins/.gitkeep
+!database/test/.gitkeep
