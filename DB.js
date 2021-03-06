@@ -31,7 +31,6 @@ class DataBase {;
         
         return fs.readdir(this.path)
         .then( async binNames => {
-            console.log(binNames);
             const items = [];
             for(const binName of binNames) {
                 if(binName === ".gitkeep") continue;
@@ -61,7 +60,7 @@ class DataBase {;
         .then( async binNames => {
             for(const binName of binNames) {
                 if(binName === ".gitkeep") continue;
-                const raw = await fs.unlink(`${this.path}/${binName}`);
+                await fs.unlink(`${this.path}/${binName}`);
             }
         });
     }

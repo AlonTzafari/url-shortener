@@ -55,7 +55,6 @@ async function createShortURL(originalUrl) {
         }
         return strArr.join("");
     }
-    console.log("fetching all bins");
     try {
         const allIds = await dataBase.getAllItemIds()
         const creationDate = new Date().toISOString().split(".")[0];

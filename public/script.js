@@ -18,6 +18,7 @@ async function onLoad() {
         const copyBtn = document.createElement("button");
         copyBtn.innerText = "COPY";
         copyBtn.classList.add("copy-button");
+        copyBtn.addEventListener("click", event => navigator.clipboard.writeText(shortUrl) );
 
         outputDiv.append(shortUrlElement, copyBtn);
     });

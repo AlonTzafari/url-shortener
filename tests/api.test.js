@@ -26,12 +26,22 @@ describe("response format" , () => {
 }); 
 
 describe("Response content" , () => {
-    const mockURL = "http://google.com";
+    const mockURLNew = "http://google.com";
+    const resPromiseNew = request(app)
+    .post("/api/shorturl/new")
+    .send({url: mockURLNew})
+    .set("Content-Type", "application/json");
+
+    const mockURL = "http://facebook.com";
     const resPromise = request(app)
     .post("/api/shorturl/new")
     .send({url: mockURL})
     .set("Content-Type", "application/json");
     
+    test("existing url respond with status 200", async () => {
+        const {status} = await resPromiseNew;
+        expect(status).toBe(200);
+    });
     test("new url respond with status 201", async () => {
         const {status} = await resPromise;
         expect(status).toBe(201);
