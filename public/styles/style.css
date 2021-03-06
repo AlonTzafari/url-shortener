@@ -9,10 +9,39 @@ header {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   margin: 0;
   height: 80px;
   background-color: #183d5f;
   color: white;
+}
+
+header nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+}
+
+header nav a {
+  color: white;
+  margin-right: 0.5em;
+  cursor: pointer;
+  text-decoration: none;
 }
 
 main {
@@ -26,6 +55,16 @@ main {
       -ms-flex-align: center;
           align-items: center;
   height: calc(100vh - 80px - 80px);
+}
+
+main.stats {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
 }
 
 main section {
@@ -45,6 +84,13 @@ main section {
   padding: 5%;
   border-radius: 15px;
   background-color: #21b321;
+}
+
+main section.stats {
+  margin-top: 1%;
+  padding: 1%;
+  height: 30px;
+  border-radius: 5px;
 }
 
 main section form {
@@ -82,6 +128,22 @@ main section .output-container #url-output {
   margin-right: 1%;
   background-color: #e6e6e6;
   text-decoration: none;
+}
+
+main #statistics-display {
+  margin-top: 5%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 1em;
+  width: 50%;
+  height: 50%;
+  background-color: #183d5f;
+  border-radius: 5px;
 }
 
 footer {

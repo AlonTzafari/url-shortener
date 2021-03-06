@@ -13,10 +13,24 @@ body {
 }
 header {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin: 0;
     height: $header-height;
     background-color: $header-color;
     color: $header-text-color;
+    nav {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        flex-grow: 1;
+        a {
+            color: $header-text-color;
+            margin-right: 0.5em;
+            cursor: pointer;
+            text-decoration: none;
+        }
+    }
 }
 
 main {
@@ -24,6 +38,10 @@ main {
     justify-content: center;
     align-items: center;
     height: calc(100vh - #{$footer-height} - #{$header-height});
+    &.stats {
+        flex-direction: column;
+        justify-content: flex-start;
+    }
 
     section {
         display: flex;
@@ -35,7 +53,12 @@ main {
         padding: 5%;
         border-radius: 15px;
         background-color: $element-color;
-
+        &.stats{
+            margin-top: 1%;
+            padding: 1%;
+            height: 30px;
+            border-radius: 5px;
+        }
         form { 
             width: 90%;
             fieldset {
@@ -56,6 +79,16 @@ main {
                 text-decoration: none;
             }
         }
+    }
+    #statistics-display {
+        margin-top: 5%;
+        display: flex;
+        flex-direction: column;
+        padding: 1em;
+        width: 50%;
+        height: 50%;
+        background-color: $header-color;
+        border-radius: 5px;
     }
 }
 footer {

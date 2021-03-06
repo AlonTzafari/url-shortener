@@ -12,24 +12,28 @@
   <body>
     <header>
       <h1>URL Shortener Microservice</h1>
+      <nav>
+        <a href="./index.html">HOME</a>
+        <a>STATISTICS</a>
+      </nav>
     </header>
-    <main>
-      <section>
+    <main class="stats">
+      <section class="stats">
         <form id="url-form">
-          <fieldset>
-            <legend>URL Shortener</legend>
             <label for="url_input">URL:</label>
             <input
               id="url_input"
               type="text"
               name="url"
-              placeholder="https://www.freecodecamp.org/"
+              placeholder="34f5"
             />
-            <input type="submit" value="POST URL" />
+            <input type="submit" value="GET STATS" />
           </fieldset>
         </form>
-        <div class="output-container"></div>
       </section>
+      <div id = "statistics-display" class = "stats">
+
+      </div>
     </main>
     <footer>
       
