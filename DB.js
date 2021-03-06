@@ -7,7 +7,6 @@ class DataBase {;
         this.key = process.env.KEY;
     }
 
-    
     getItem(id) {
         return fs.readdir(this.path)
         .then(binNames => {
@@ -43,13 +42,10 @@ class DataBase {;
             return items;
         });
     }
-    
 
     getItemByProperty(propName, value) {
         return this.getAllItems()
         .then(allBins => {
-            // console.log(allBins);
-            console.log(propName, value);
             const bin = allBins.filter(bin => bin[propName] === value);
             if (bin.length === 0) throw new Error("item not found");
             return bin[0];
