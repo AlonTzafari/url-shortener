@@ -9,9 +9,9 @@ describe("response format" , () => {
     .send({url: mockURL})
     .set("Content-Type", "application/json");
 
-    test("response with status 201", async () => {
+    test("response with status 20X", async () => {
         const {status} = await resPromise;
-        expect(status).toBe(201);
+        expect([200,201]).toContain(status);
     });
 
     const cases = [
@@ -32,6 +32,10 @@ describe("Response content" , () => {
     .send({url: mockURL})
     .set("Content-Type", "application/json");
     
+    test("new url respond with status 201", async () => {
+        const {status} = await resPromise;
+        expect(status).toBe(201);
+    });
     test("'original_url' same as one sent", async () => {
         const {body} = await resPromise;
         expect(body["original_url"]).toBe(mockURL);

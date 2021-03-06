@@ -22,7 +22,10 @@ class DataBase {;
 
     getAllItemIds() {
         return fs.readdir(this.path)
-        .then( binNames =>  binNames.map(binName => binName.split(".json")[0]) );
+        .then( fileNames => 
+            fileNames.filter(name => name !== ".gitkeep")
+            .map(binName => binName.split(".json")[0])
+        );
     }
 
     getAllItems() {
@@ -31,6 +34,7 @@ class DataBase {;
         .then( async binNames => {
             const items = [];
             for(const binName of binNames) {
+                if(binName === ".gitkeep") continue;
                 const raw = await fs.readFile(`${this.path}/${binName}`);
                 items.push(JSON.parse(raw));
             }
@@ -42,13 +46,10 @@ class DataBase {;
     getItemByProperty(propName, value) {
         return this.getAllItems()
         .then(allBins => {
-            console.log("result of getAll items:");
-            console.log(allBins);
             const bin = allBins.filter(bin => bin[propName === value]);
             if (bin.length === 0) throw new Error("item not found");
             return bin[0];
         })
-        .catch();
     }
     
     setItem(id, item) {
@@ -59,6 +60,7 @@ class DataBase {;
         return fs.readdir(this.path)
         .then( async binNames => {
             for(const binName of binNames) {
+                if(binName === ".gitkeep") continue;
                 const raw = await fs.unlink(`${this.path}/${binName}`);
             }
         });
