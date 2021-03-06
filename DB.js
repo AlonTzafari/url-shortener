@@ -10,7 +10,16 @@ class DataBase {
     }
 
     getItem(id) {
+        return axios.get("https://api.jsonbin.io/v3/b/" + id);
+    }
 
+    getAllItems() {
+        const options = {
+            headers: {
+              'Test-Header': 'test-value'
+            }
+          }
+        return axios.get(`https://api.jsonbin.io/v3/c/${this.collection_id}/bins/0`);
     }
 
     getItemByProperty(propName, value) {

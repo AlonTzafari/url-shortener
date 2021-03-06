@@ -24,8 +24,8 @@ api.post("/shorturl/new", (req, res) => {
         const short_url = `${DOMAIN}/${id}`;
         res.status(200).send({original_url, short_url})
     })
-    .catch(() => {
-        const newShortUrlBin = createShortURL(original_url);
+    .catch(async () => {
+        const newShortUrlBin = await createShortURL(original_url);
         const id = newShortUrlBin["shorturl-id"];
         const short_url = `${DOMAIN}/${id}`;
         return dataBase.setItem(id, newShortUrlBin)
@@ -34,5 +34,35 @@ api.post("/shorturl/new", (req, res) => {
     .catch( error => res.status(500).send(error) );
 });
 
-
+function createShortURL(originalUrl) {
+    const chars = "0123456789abcdefghijklmnopqrstuvwxyz";
+    function convertToNum(str) {
+        const base = chars.length;
+        return str.reduce(value,char,index => value + chars.getIndexOf(char) * ( base ** (str.length - 1 - index)));
+    }
+    function convertToStr(num) {
+        const base = chars.length;
+        let tempNum = num;
+        if (num === 0) return "0";
+        const strArr = [];
+        while(num > 0) {
+            const index = num % base;
+            strArr.unshift(chars[index]);
+            num = (num - index) / base;
+        }
+        return strArr.join("");
+    }
+    dataBase.getAllItems()
+    .then(allBins => {
+        const creationDate = new Date().toISOString.split("z")[0];
+        const redirectCount = 0;
+        const shortUrlId = convertToStr(allBins.length);
+        return {
+            creationDate,
+            redirectCount,
+            originalUrl,
+            "shorturl-id": shortUrlId
+        };
+    })
+}
 module.exports = api;
