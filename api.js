@@ -36,6 +36,15 @@ api.post("/shorturl/new", (req, res) => {
     });
     
 });
+api.get("/statistic/:shorturl-id", (req, res) => {
+    const urlId = req.params["shorturl-id"];
+
+    dataBase.getItemByProperty("shorturl-id", urlId)
+    .then( bin => res.status(200).send(bin))
+    .catch( e => res.status(404).send({message: "url id not found"}) );
+    
+});
+
 
 async function createShortURL(originalUrl) {
     const chars = "0123456789abcdefghijklmnopqrstuvwxyz";
