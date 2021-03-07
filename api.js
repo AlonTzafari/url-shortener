@@ -2,7 +2,8 @@
 const express = require("express");
 const DataBase = require("./DB");
 const api = express.Router();
-const DOMAIN = process.env.HOST_NAME || `http://localhost:${process.env.PORT}`;
+const port = process.env.PORT || 3000;
+const DOMAIN = process.env.HOST_NAME || `http://localhost:${port}`;
 
 const dB = process.env.NODE_ENV === "test"? "test": "local";
 console.log("creating database of type " + dB);
