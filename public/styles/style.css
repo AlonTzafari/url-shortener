@@ -139,11 +139,20 @@ main #statistics-display {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
   padding: 1em;
   width: 50%;
+  max-width: 400px;
   height: 50%;
   background-color: #183d5f;
   border-radius: 5px;
+  color: white;
+}
+
+main #statistics-display p span.stats {
+  font-weight: bold;
+  margin-left: 2em;
 }
 
 footer {

@@ -23,9 +23,3 @@ async function onLoad() {
         outputDiv.append(shortUrlElement, copyBtn);
     });
 }
-
-
-{/* <div class="output-container">
-<a id = "url-output" href="">shorturl.com</a>
-<button>COPY</button>
-</div> */}
