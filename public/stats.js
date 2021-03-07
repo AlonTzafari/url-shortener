@@ -6,7 +6,7 @@ async function onLoad() {
     form.addEventListener("submit", async (event) => {
         event.preventDefault();
         const url = form.querySelector("#url_input").value;
-        const res = await axios.get( "http://localhost:3000/api/statistic/" + url);
+        const res = await axios.get( "http://" + window.location.host + "/api/statistic/" + url);
         
         const createdAt = res.data["creationDate"];
         const redirectCount = res.data["redirectCount"];

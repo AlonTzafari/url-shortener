@@ -6,7 +6,7 @@ async function onLoad() {
     form.addEventListener("submit", async (event) => {
         event.preventDefault();
         const url = form.querySelector("#url_input").value;
-        const res = await axios.post( "http://localhost:3000/api/shorturl/new", {url} );
+        const res = await axios.post( "http://" + window.location.host + "/api/shorturl/new", {url} );
         const shortUrl = res.data.short_url;
         const outputDiv = document.querySelector(".output-container");
         outputDiv.innerHTML = "";
